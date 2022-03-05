@@ -54,9 +54,9 @@ return (
               value={BaseIMAGE}
               onChangeText={setBaseIMAGE}
             />
-    {/* onPress={handleSubmit} */}
-            <TouchableOpacity  style={styles.button}>
-              <Text style={styles.buttonText}>Salvar credenciais</Text>
+    
+            <TouchableOpacity onPress={console.log(BaseIMAGE, BaseURL)} style={styles.button}>
+              <Text style={styles.buttonText}>Salvar Credenciais</Text>
             </TouchableOpacity>
           </View>
     </View>
