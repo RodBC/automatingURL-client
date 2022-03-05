@@ -26,7 +26,15 @@ export function SetURL({ navigation }) {
 
   //   navigation.navigate('List');
   // }
-
+  async function handleSubmit(){
+    console.log(BaseURL)
+    console.log(BaseIMAGE)
+  
+    // await AsyncStorage.setItem('BaseURL', BaseURL)
+    // await AsyncStorage.setItem('BaseIMAGE', BaseIMAGE)
+  
+    // await AsyncStorage.getItem('BaseURL')
+  }
 
 return (
         <View>
@@ -55,7 +63,7 @@ return (
               onChangeText={setBaseIMAGE}
             />
     
-            <TouchableOpacity onPress={console.log(BaseIMAGE, BaseURL)} style={styles.button}>
+            <TouchableOpacity onPress={handleSubmit} style={styles.button}>
               <Text style={styles.buttonText}>Salvar Credenciais</Text>
             </TouchableOpacity>
           </View>
