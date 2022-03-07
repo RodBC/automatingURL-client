@@ -8,6 +8,7 @@ export function SetURL({ navigation }) {
   //base url e imagem url
 
 
+  const [NomeServidor, setNome] = useState('');
   const [BaseURL, setBaseURL] = useState('');
   const [BaseIMAGE, setBaseIMAGE] = useState('');
 
@@ -29,6 +30,7 @@ export function SetURL({ navigation }) {
   async function handleSubmit(){
     console.log(BaseURL)
     console.log(BaseIMAGE)
+    console.log(NomeServidor)
   
     // await AsyncStorage.setItem('BaseURL', BaseURL)
     // await AsyncStorage.setItem('BaseIMAGE', BaseIMAGE)
@@ -41,6 +43,18 @@ return (
           <Image source={logo} />
     
           <View style={styles.form}>
+
+          <Text style={styles.label}>Nome do Servidor *</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Nome do Servidor"
+              placeholderTextColor="#999"
+              autoCapitalize="none"
+              autoCorrect={false}
+              value={NomeServidor}
+              onChangeText={setNome}
+            />
+
             <Text style={styles.label}>Sua URL *</Text>
             <TextInput
               style={styles.input}
