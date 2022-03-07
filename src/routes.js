@@ -1,13 +1,23 @@
-import { createAppContainer, createSwitchNavigator } from 'react-navigation';
+import { createStackNavigator } from '@react-navigation/stack';
 
 import {SetURL} from './RegisterUrl';
 import {ListUrls} from './List';
 
-const Routes = createAppContainer(
-  createSwitchNavigator({
-    SetURL,
-    ListUrls,
-  })
-);
+const Stack = createStackNavigator();
 
-export default Routes;
+export const Routes = () => {
+  return(
+    <Stack.Navigator>
+      <Stack.Screen name="cadastro" component={SetURL} />
+      <Stack.Screen name="escolha" component={ListUrls} />
+    </Stack.Navigator>
+  )
+}
+
+  // useEffect(() => {
+  //   AsyncStorage.getItem('user').then(user => {
+  //     if (user) {
+  //       navigation.navigate('ListUrls');
+  //     }
+  //   })
+  // }, []);
