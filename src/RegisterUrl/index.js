@@ -1,72 +1,54 @@
 import React, { useState, useEffect } from 'react';
 import { View, Image, KeyboardAvoidingView, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import logo from '../../assets/logo.png';
 
-export function SetURL({ navigation }) {
+export function SetURL() {
+
   //Nome, base url e imagem url
-
-
   const [NomeServidor, setNome] = useState('');
   const [BaseURL, setBaseURL] = useState('');
   const [BaseIMAGE, setBaseIMAGE] = useState('');
+
+  // useEffect(() => {
+  //   AsyncStorage.getItem('user').then(user => {
+  //     if (user) {
+  //       navigation.navigate('ListUrls');
+  //     }
+  //   })
+  // }, []);
 
   async function handleSubmit() {
     console.log(NomeServidor)
     console.log(BaseURL)
     console.log(BaseIMAGE)
+  }
+
+  async function handleAsyncStorage(){
+    //armazenar valor no cache
+    handleSubmit(); //CONSOLANDO VALORES DE ESTADO ATUAIS
+
+    const storeNome = async () => {
+      try {
+        await AsyncStorage.setItem('@BaseURL', BaseURL)
+      } catch (e) {
+        console.log(e)
+        }  
+      }
+    storeNome()
+    getNome();
     }
-
-  // async function handleAsyncStorage(){
-  //   //armazenar valor no cache
-  //   await AsyncStorage.setItem("@Nome", NomeServidor)
-  //   await AsyncStorage.setItem("@Url", BaseURL)
-  //   await AsyncStorage.setItem("@Imagem", BaseIMAGE)
-  //   getData();
-  // }
-
-  // async function getData(){
-  //   const NomeAsync = await AsyncStorage('@Nome')
-  //   if (NomeAsync){
-  //     setNome(NomeAsync)
-  //   }
-  //   const UrlAsync = await AsyncStorage('@Url')
-  //   if (UrlAsync){
-  //     setBaseURL(UrlAsync)
-  //   }
-  //   const ImagemAsync = await AsyncStorage('@Imagem')
-  //     if (ImagemAsync){
-  //       setBaseIMAGE(ImagemAsync)
-  //       }
-  //   }
-
-  //   useEffect(() => {
-  //     getData()
-  //   }, [])
-  
-
-  // useEffect(() => {
-  //   AsyncStorage.getItem('user').then(user => {
-  //     if (user) {
-  //       navigation.navigate('List');
-  //     }
-  //   })
-  // }, []);
-
-  // async function handleSubmit() {
-
-  //   await AsyncStorage.setItem('BaseURL', BaseURL);
-  //   await AsyncStorage.setItem('BaseIMAGE', BaseIMAGE);
-
-  //   navigation.navigate('List');
-  // }
-
-    // await AsyncStorage.setItem('BaseURL', BaseURL)
-    // await AsyncStorage.setItem('BaseIMAGE', BaseIMAGE)
-
-    // await AsyncStorage.getItem('BaseURL')
-  
+  const getNome = async () => {
+    try {
+      const base = await AsyncStorage.getItem('@BaseURL')
+      if(base !== null) {
+        console.log(base)
+      }
+    } catch(e) {
+      console.log(e)
+    }
+  }
 
   return (
     <KeyboardAvoidingView enabled={Platform.OS === 'ios'} behavior="padding" style={styles.container}>
@@ -103,7 +85,7 @@ export function SetURL({ navigation }) {
             value={BaseIMAGE}
             onChangeText={setBaseIMAGE}
           />
-          <TouchableOpacity onPress={handleSubmit} style={styles.button}>
+          <TouchableOpacity onPress={handleAsyncStorage} style={styles.button}>
             <Text style={styles.buttonText}>Salvar Credenciais</Text>
           </TouchableOpacity>
         </View>
