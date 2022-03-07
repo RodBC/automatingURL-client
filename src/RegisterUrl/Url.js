@@ -1,16 +1,50 @@
 import React, { useState, useEffect } from 'react';
-import { View, Image, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-import {AsyncStorage} from '@react-native-community/async-storage'
+import { View, Image, KeyboardAvoidingView, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage'
 
 import logo from '../../assets/logo.png';
 
 export function SetURL({ navigation }) {
-  //base url e imagem url
+  //Nome, base url e imagem url
 
 
   const [NomeServidor, setNome] = useState('');
   const [BaseURL, setBaseURL] = useState('');
   const [BaseIMAGE, setBaseIMAGE] = useState('');
+
+  async function handleSubmit() {
+    console.log(NomeServidor)
+    console.log(BaseURL)
+    console.log(BaseIMAGE)
+    }
+
+  // async function handleAsyncStorage(){
+  //   //armazenar valor no cache
+  //   await AsyncStorage.setItem("@Nome", NomeServidor)
+  //   await AsyncStorage.setItem("@Url", BaseURL)
+  //   await AsyncStorage.setItem("@Imagem", BaseIMAGE)
+  //   getData();
+  // }
+
+  // async function getData(){
+  //   const NomeAsync = await AsyncStorage('@Nome')
+  //   if (NomeAsync){
+  //     setNome(NomeAsync)
+  //   }
+  //   const UrlAsync = await AsyncStorage('@Url')
+  //   if (UrlAsync){
+  //     setBaseURL(UrlAsync)
+  //   }
+  //   const ImagemAsync = await AsyncStorage('@Imagem')
+  //     if (ImagemAsync){
+  //       setBaseIMAGE(ImagemAsync)
+  //       }
+  //   }
+
+  //   useEffect(() => {
+  //     getData()
+  //   }, [])
+  
 
   // useEffect(() => {
   //   AsyncStorage.getItem('user').then(user => {
@@ -27,61 +61,54 @@ export function SetURL({ navigation }) {
 
   //   navigation.navigate('List');
   // }
-  async function handleSubmit(){
-    console.log(BaseURL)
-    console.log(BaseIMAGE)
-    console.log(NomeServidor)
-  
+
     // await AsyncStorage.setItem('BaseURL', BaseURL)
     // await AsyncStorage.setItem('BaseIMAGE', BaseIMAGE)
-  
+
     // await AsyncStorage.getItem('BaseURL')
-  }
+  
 
-return (
-        <View>
-          <Image source={logo} />
-    
-          <View style={styles.form}>
-
+  return (
+    <KeyboardAvoidingView enabled={Platform.OS === 'ios'} behavior="padding" style={styles.container}>
+      <View>
+        <Image source={logo} />
+        <View style={styles.form}>
           <Text style={styles.label}>Nome do Servidor *</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Nome do Servidor"
-              placeholderTextColor="#999"
-              autoCapitalize="none"
-              autoCorrect={false}
-              value={NomeServidor}
-              onChangeText={setNome}
-            />
-
-            <Text style={styles.label}>Sua URL *</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Sua URL"
-              placeholderTextColor="#999"
-              autoCapitalize="none"
-              autoCorrect={false}
-              value={BaseURL}
-              onChangeText={setBaseURL}
-            />
-    
-            <Text style={styles.label}>Sua ImagemURL *</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="URL da sua Imagem"
-              placeholderTextColor="#999"
-              autoCapitalize="words"
-              autoCorrect={false}
-              value={BaseIMAGE}
-              onChangeText={setBaseIMAGE}
-            />
-    
-            <TouchableOpacity onPress={handleSubmit} style={styles.button}>
-              <Text style={styles.buttonText}>Salvar Credenciais</Text>
-            </TouchableOpacity>
-          </View>
-    </View>
+          <TextInput
+            style={styles.input}
+            placeholder="Nome do Servidor"
+            placeholderTextColor="#999"
+            autoCapitalize="none"
+            autoCorrect={false}
+            value={NomeServidor}
+            onChangeText={setNome}
+          />
+          <Text style={styles.label}>Sua URL *</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Sua URL"
+            placeholderTextColor="#999"
+            autoCapitalize="none"
+            autoCorrect={false}
+            value={BaseURL}
+            onChangeText={setBaseURL}
+          />
+          <Text style={styles.label}>Sua ImagemURL *</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="URL da sua Imagem"
+            placeholderTextColor="#999"
+            autoCapitalize="words"
+            autoCorrect={false}
+            value={BaseIMAGE}
+            onChangeText={setBaseIMAGE}
+          />
+          <TouchableOpacity onPress={handleSubmit} style={styles.button}>
+            <Text style={styles.buttonText}>Salvar Credenciais</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </KeyboardAvoidingView>
   );
 }
 
